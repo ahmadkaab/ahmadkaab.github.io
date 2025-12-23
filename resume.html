@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Ahmad Kaab Usmani</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: #fff;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .name {
+            font-size: 36px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .role {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info {
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            color: #222;
+        }
+        
+        .skill-category {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+        }
+        
+        .project-item, .experience-item {
+            margin-bottom: 20px;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .item-title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .item-date {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .item-subtitle {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        
+        ul {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 3px;
+            font-size: 14px;
+        }
+
+        @media print {
+            @page {
+                margin: 0;
+            }
+            body {
+                padding: 40px;
+                margin: 0;
+            }
+            .no-print {
+                display: none;
+            }
+            a {
+                text-decoration: none;
+                color: #333;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="background: #f0f0f0; padding: 10px; text-align: center; margin-bottom: 20px; border: 1px solid #ccc;">
+        <strong>Instructions:</strong> Press Ctrl+P (or Cmd+P), go to <b>More Settings</b>, and uncheck <b>"Headers and footers"</b> to get a clean PDF.
+    </div>
+
+    <div class="header">
+        <div class="name">Ahmad Kaab Usmani</div>
+        <div class="contact-info">
+            Delhi, India | ahmadkaab4@gmail.com | linkedin.com/in/ahmad-kaab | github.com/ahmadkaab
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <p style="font-size: 14px;">
+            A driven BCA student and full-stack builder with a focus on Cybersecurity and Automation. Proven track record in scaling digital products (1.6M+ views) and developing autonomous tools using Python and AI APIs. Passionate about solving complex problems through code and strategic thinking.
+        </p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Technical Skills</div>
+        <div style="font-size: 14px;">
+            <div><span class="skill-category">Development:</span> Python, C++, Git, Vibe Coding, HTML/CSS</div>
+            <div style="margin-top: 5px;"><span class="skill-category">Security:</span> Nmap, Burp Suite, OWASP Top 10, Linux (Kali)</div>
+            <div style="margin-top: 5px;"><span class="skill-category">Tools & Creative:</span> Microsoft Office Suite, SEO, CapCut, OBS Studio</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Featured Projects</div>
+        
+        <div class="project-item">
+            <div class="item-header">
+                <span class="item-title">ScaleFlow - Autonomous Content Pipeline</span>
+            </div>
+            <ul>
+                <li>Developed an end-to-end automation system using Python and the Gemini API.</li>
+                <li>Automated niche research, content generation, and marketing asset creation.</li>
+                <li>Reduced content production time by 90% through AI-driven workflows.</li>
+            </ul>
+        </div>
+
+        <div class="project-item">
+            <div class="item-header">
+                <span class="item-title">OSINT Telegram Bot</span>
+            </div>
+            <ul>
+                <li>Built a Python-based Open Source Intelligence tool integrated with Telegram API.</li>
+                <li>Implemented automated web scraping and local database (Excel) search capabilities.</li>
+                <li>Deployed for real-time information retrieval and monitoring.</li>
+            </ul>
+        </div>
+
+        <div class="project-item">
+            <div class="item-header">
+                <span class="item-title">Algorithmic Trading Bot</span>
+            </div>
+            <ul>
+                <li>Engineered a crypto trading bot using CCXT library and SMA Crossover strategy.</li>
+                <li>Implemented secure API key management and real-time execution handling.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Experience</div>
+        
+        <div class="experience-item">
+            <div class="item-header">
+                <span class="item-title">Cybersecurity Intern</span>
+            </div>
+            <div class="item-subtitle">Secure Strike</div>
+            <ul>
+                <li>Conducted vulnerability assessments using Nmap and Burp Suite.</li>
+                <li>Assisted in penetration testing of web applications, focusing on OWASP vulnerabilities.</li>
+                <li>Gained hands-on experience in network reconnaissance and security auditing.</li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <div class="item-header">
+                <span class="item-title">Digital Growth Strategist</span>
+            </div>
+            <div class="item-subtitle">Self-Employed</div>
+            <ul>
+                <li>Scaled Instagram meme page (@a2h.l0l) to over 1.6 Million impressions through viral content strategy.</li>
+                <li>Grew a YouTube channel to 25k views and 200+ subscribers in under 50 videos.</li>
+                <li>Implemented data-driven content optimization using CapCut and SEO techniques.</li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <div class="item-header">
+                <span class="item-title">Esports Team Manager</span>
+            </div>
+            <div class="item-subtitle">Team Falah (BGMI)</div>
+            <ul>
+                <li>Founded and managed a competitive esports team, overseeing recruitment and strategy.</li>
+                <li>Coordinated tournament participation and community engagement.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Education</div>
+        <div class="experience-item">
+            <div class="item-header">
+                <span class="item-title">Bachelor of Computer Applications (BCA)</span>
+                <span class="item-date">2023 - 2026</span>
+            </div>
+            <div class="item-subtitle">Jagannath Institute of Management Sciences, New Delhi</div>
+        </div>
+        <div class="experience-item">
+            <div class="item-header">
+                <span class="item-title">Higher Secondary (Class XII)</span>
+                <span class="item-date">2023</span>
+            </div>
+            <div class="item-subtitle">Maples Academy</div>
+        </div>
+        <div class="experience-item">
+            <div class="item-header">
+                <span class="item-title">Secondary School (Class X)</span>
+                <span class="item-date">2021</span>
+            </div>
+            <div class="item-subtitle">Maples Academy</div>
+        </div>
+    </div>
+
+</body>
+</html>
