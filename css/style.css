@@ -157,7 +157,7 @@ img, svg { display: block; max-width: 100%; }
   font-size: clamp(3.4rem, 11.5vw, 10.5rem);
   line-height: 0.98;
   letter-spacing: -0.03em;
-  margin: 4vh 0 3vh;
+  margin: 3vh 0 2.5vh;
 }
 .hero__line { display: block; overflow: hidden; padding: 0.02em 0; }
 .hero__line--2 { padding-left: clamp(0rem, 8vw, 8rem); }
@@ -193,9 +193,9 @@ img, svg { display: block; max-width: 100%; }
 
 /* Rotating badge */
 .hero__badge {
-  position: absolute; right: var(--pad); bottom: 4.2rem;
+  position: absolute; right: var(--pad); top: 50%; margin-top: -48px;
   width: 96px; height: 96px; display: grid; place-items: center;
-  cursor: pointer;
+  cursor: pointer; z-index: 2;
 }
 .hero__badge-svg { position: absolute; inset: 0; animation: spin 14s linear infinite; }
 .hero__badge-svg text {
@@ -224,7 +224,7 @@ img, svg { display: block; max-width: 100%; }
 
 /* ============ MARQUEE ============ */
 .marquee { overflow: hidden; padding: 1.1rem 0; }
-.marquee--ink { background: var(--ink); color: var(--paper); transform: rotate(-1.2deg) scale(1.02); margin: 2.5rem 0; }
+.marquee--ink { background: var(--ink); color: var(--paper); transform: rotate(-1deg) scale(1.01); margin: 3rem 0; }
 .marquee--cream { background: var(--paper); color: var(--ink); border-top: 1px solid var(--line); }
 .marquee__track {
   display: flex; align-items: center; gap: 2.2rem; width: max-content;
@@ -513,7 +513,7 @@ img, svg { display: block; max-width: 100%; }
   position: absolute; inset: 0; z-index: 0;
   width: 100%; height: 100%; display: block;
 }
-.hero > *:not(canvas):not(.hero__grain) { position: relative; z-index: 1; }
+.hero > *:not(canvas):not(.hero__grain):not(.hero__badge) { position: relative; z-index: 1; }
 .hero__grain { z-index: 2; }
 
 /* ---- Horizontal work ---- */
