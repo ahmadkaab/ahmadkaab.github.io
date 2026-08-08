@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Résumé — Ahmad Kaab Usmani · Web Developer & Digital Marketing Specialist</title>
+<meta name="description" content="Résumé of Ahmad Kaab Usmani — web developer, digital marketing specialist, and AI automation builder based in Delhi, India." />
+<meta name="robots" content="index,follow" />
+<meta name="theme-color" content="#F3EFE6" />
+<meta property="og:type" content="profile" />
+<meta property="og:title" content="Résumé — Ahmad Kaab Usmani" />
+<meta property="og:description" content="Web developer, digital marketing specialist & AI automation builder — Delhi, India. Remote worldwide." />
+<meta property="og:url" content="https://ahmadkaab.github.io/resume.html" />
+<meta property="og:image" content="https://ahmadkaab.github.io/og-image.png" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+<style>
+  /* ---- Resume-specific ---- */
+  .resume {
+    max-width: 880px; margin: 0 auto;
+    padding: 8.5rem var(--pad) 4rem;
+  }
+  .resume__head { border-bottom: 2px solid var(--ink); padding-bottom: 1.6rem; margin-bottom: 2.4rem; }
+  .resume__name { font-family: var(--serif); font-weight: 560; letter-spacing: -0.02em; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1; }
+  .resume__role { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-top: 0.7rem; }
+  .resume__contact { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-top: 1.1rem; font-size: 0.85rem; color: var(--ink-soft); }
+  .resume__contact a { border-bottom: 1px solid var(--line); transition: color .3s, border-color .3s; }
+  .resume__contact a:hover { color: var(--accent); border-color: var(--accent); }
+  .resume__section { margin-bottom: 2.6rem; }
+  .resume__h { font-family: var(--serif); font-size: 1.5rem; font-weight: 560; letter-spacing: -0.01em; display: flex; align-items: baseline; gap: 0.9rem; margin-bottom: 1.2rem; }
+  .resume__h::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .resume__h em { font-style: italic; color: var(--accent); font-size: 1.1rem; }
+  .resume__p { color: var(--ink-soft); line-height: 1.7; font-size: 0.98rem; max-width: 70ch; }
+  .skills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .skills span { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: 0.45rem 1rem; color: var(--ink-soft); }
+  .skills span b { color: var(--ink); font-weight: 700; }
+  .job { margin-bottom: 1.7rem; }
+  .job__row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .job__title { font-family: var(--serif); font-size: 1.35rem; font-weight: 560; }
+  .job__org { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .job__meta { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+  .job ul { margin-top: 0.7rem; padding-left: 1.2rem; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.65; }
+  .job li { margin-bottom: 0.35rem; }
+  .job li::marker { color: var(--accent); }
+  .proj { display: grid; grid-template-columns: 11rem 1fr; gap: 1rem; padding: 0.9rem 0; border-top: 1px solid var(--line); }
+  .proj:last-child { border-bottom: 1px solid var(--line); }
+  .proj__name { font-family: var(--serif); font-weight: 560; font-size: 1.05rem; }
+  .proj__name a { border-bottom: 1px solid var(--line); }
+  .proj__name a:hover { color: var(--accent); border-color: var(--accent); }
+  .proj__desc { color: var(--ink-soft); font-size: 0.9rem; line-height: 1.6; }
+  .edu { color: var(--ink-soft); font-size: 0.95rem; line-height: 1.7; }
+  .edu b { color: var(--ink); }
+  .resume__tools { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2.6rem; }
+  .resume__tools a { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; border: 1.5px solid var(--ink); border-radius: 999px; padding: 0.8rem 1.6rem; transition: background-color .3s, color .3s; }
+  .resume__tools a:hover { background: var(--ink); color: var(--paper); }
+  .resume__tools a.btn--accent { border-color: var(--accent); color: var(--accent); }
+  .resume__tools a.btn--accent:hover { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+
+  @media (max-width: 640px) {
+    .proj { grid-template-columns: 1fr; gap: 0.3rem; }
+    .resume { padding-top: 7rem; }
+  }
+  @media print {
+    .nav, .resume__tools, .footer { display: none !important; }
+    .resume { padding: 0; max-width: 100%; }
+    body { background: #fff; }
+    .resume__section { break-inside: avoid; }
+    .proj { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="nav__logo" href="index.html">ahmad<span class="nav__logo-accent">©</span></a>
+  <nav class="nav__links">
+    <a href="index.html#work">Work</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact" class="nav__cta">Start a project</a>
+  </nav>
+</header>
+
+<main class="resume">
+
+  <header class="resume__head">
+    <h1 class="resume__name">Ahmad Kaab Usmani</h1>
+    <p class="resume__role">Web Developer · Digital Marketing Specialist</p>
+    <div class="resume__contact">
+      <span>Delhi, India</span>
+      <a href="mailto:ahmadkaab4@gmail.com">ahmadkaab4@gmail.com</a>
+      <a href="https://linkedin.com/in/ahmad-kaab-bb435430" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://github.com/ahmadkaab" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://ahmadkaab.github.io" target="_blank" rel="noopener">ahmadkaab.github.io ↗</a>
+    </div>
+  </header>
+
+  <section class="resume__section">
+    <h2 class="resume__h">Summary <em>✦</em></h2>
+    <p class="resume__p">Entrepreneurial BCA student and full-stack builder focused on web development, digital growth, AI integration, and automation. Experienced in designing and deploying responsive, SEO-friendly websites, building practical digital products, and growing online audiences through data-driven content strategies. Combines technical problem-solving with business-oriented thinking to turn ideas into useful digital solutions.</p>
+  </section>
+
+  <section class="resume__section">
+    <h2 class="resume__h">Core Skills <em>✦</em></h2>
+    <div class="skills">
+      <span><b>Web Dev:</b> HTML · CSS · JS · Responsive · Deployment</span>
+      <span><b>Digital Marketing:</b> SEO · Keyword Research · SMM · Meta Ads</span>
+      <span><b>Development:</b> Python · C/C++ · Flutter · Telegram API · Git</span>
+      <span><b>AI &amp; Automation:</b> Gemini API · Prompt Engineering · Workflow Automation</span>
+      <span><b>Cybersecurity:</b> Burp Suite · Nmap · Linux CLI</span>
+      <span><b>Tools:</b> MS Office · CapCut · OBS Studio</span>
+    </div>
+  </section>
+
+  <section class="resume__section">
+    <h2 class="resume__h">Experience <em>✦</em></h2>
+
+    <div class="job">
+      <div class="job__row">
+        <span class="job__title">Freelance Web Developer</span>
+        <span class="job__org">Self-Employed · Freelance</span>
+      </div>
+      <ul>
+        <li>Designed, developed, and deployed multiple niche websites from concept to launch.</li>
+        <li>Built responsive, SEO-optimized websites focused on usability, performance, and practical business requirements.</li>
+        <li>Worked across web design, development, content structure, and online presence improvements.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job__row">
+        <span class="job__title">Digital Growth Strategist</span>
+        <span class="job__org">Self-Employed · Independent</span>
+      </div>
+      <ul>
+        <li>Scaled an Instagram meme page to <b>1.6M+ impressions</b> through viral content strategy.</li>
+        <li>Grew a YouTube channel to <b>25K views and 200+ subscribers</b> in fewer than 50 videos.</li>
+        <li>Applied SEO, keyword research, content optimization, and audience-focused creative strategy.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job__row">
+        <span class="job__title">Cybersecurity Intern</span>
+        <span class="job__org">Secure Strike</span>
+        <span class="job__meta">2024 · 8 weeks</span>
+      </div>
+      <ul>
+        <li>Conducted web security assessments and vulnerability identification using Burp Suite and Nmap.</li>
+        <li>Performed network scanning and troubleshooting in Linux command-line environments.</li>
+        <li>Worked with common web application vulnerabilities and security-audit workflows.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="resume__section">
+    <h2 class="resume__h">Selected Projects <em>✦</em></h2>
+
+    <div class="proj">
+      <span class="proj__name">ScaleFlow</span>
+      <p class="proj__desc">Autonomous content pipeline — Python + Gemini API workflow for niche research, content generation, and marketing asset creation; <b>reduced content production time by 90%</b>.</p>
+    </div>
+    <div class="proj">
+      <span class="proj__name"><a href="https://ebookbazar.shop" target="_blank" rel="noopener">AI eBook Generator ↗</a></span>
+      <p class="proj__desc">Architected an AI platform that autonomously generated <b>50+ formatted digital products</b> in PDF/EPUB formats.</p>
+    </div>
+    <div class="proj">
+      <span class="proj__name">Roster Up</span>
+      <p class="proj__desc">Flutter MVP for the esports ecosystem — helping BGMI players discover competitive teams.</p>
+    </div>
+    <div class="proj">
+      <span class="proj__name">Pantry Pal</span>
+      <p class="proj__desc">Flutter inventory-management MVP with an AI recipe engine that generates meal ideas from available ingredients.</p>
+    </div>
+    <div class="proj">
+      <span class="proj__name">OSINT Telegram Bot</span>
+      <p class="proj__desc">Python automation bot using Pandas and the Telegram API for OSINT lookups from local databases and web sources.</p>
+    </div>
+    <div class="proj">
+      <span class="proj__name">Algorithmic Trading Bot</span>
+      <p class="proj__desc">CCXT-based trading script using an SMA crossover strategy with exchange API key management and execution handling.</p>
+    </div>
+  </section>
+
+  <section class="resume__section">
+    <h2 class="resume__h">Leadership <em>✦</em></h2>
+    <div class="job">
+      <div class="job__row">
+        <span class="job__title">Founder &amp; Manager — Team FALAH</span>
+        <span class="job__org">BGMI Esports</span>
+        <span class="job__meta">2 years</span>
+      </div>
+      <ul>
+        <li>Managed operations and strategy for a competitive 4-player esports roster.</li>
+        <li>Coordinated recruitment, tournament participation, team logistics, and community engagement.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="resume__section">
+    <h2 class="resume__h">Education <em>✦</em></h2>
+    <p class="edu"><b>Bachelor of Computer Applications (BCA)</b> — Jagannath Institute of Management Sciences, Delhi · 2023–2026</p>
+    <p class="edu">Senior Secondary (Class XII) — Maples Academy, Uttar Pradesh · 2023</p>
+    <p class="edu">Secondary School (Class X) — Maples Academy, Uttar Pradesh · 2021</p>
+  </section>
+
+  <div class="resume__tools">
+    <a href="resume.pdf" target="_blank">Download PDF ↓</a>
+    <a href="index.html#contact" class="btn--accent">Start a project →</a>
+  </div>
+
+</main>
+
+<footer class="footer" style="margin-top: 2rem;">
+  <div class="footer__bottom">
+    <span>© 2026 Ahmad Kaab Usmani.</span>
+    <a href="index.html">Back to portfolio ↑</a>
+  </div>
+</footer>
+
+</body>
+</html>
