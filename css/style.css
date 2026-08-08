@@ -503,3 +503,92 @@ img, svg { display: block; max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* ============================================================
+   WOW LAYER — ink hero, horizontal work, terminal
+   ============================================================ */
+
+/* ---- Hero ink canvas ---- */
+.hero__ink {
+  position: absolute; inset: 0; z-index: 0;
+  width: 100%; height: 100%; display: block;
+}
+.hero > *:not(canvas):not(.hero__grain) { position: relative; z-index: 1; }
+.hero__grain { z-index: 2; }
+
+/* ---- Horizontal work ---- */
+.work__viewport { height: 100vh; overflow: hidden; position: relative; }
+.work__track {
+  display: flex; align-items: center; gap: clamp(2rem, 5vw, 5rem);
+  height: 100%; padding: 0 var(--pad);
+  will-change: transform;
+}
+.project--panel {
+  width: clamp(620px, 68vw, 980px); flex: 0 0 auto;
+  padding: 0; position: relative;
+}
+.project__bg {
+  position: absolute; top: 52%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--serif); font-weight: 700; letter-spacing: -0.03em;
+  font-size: clamp(11rem, 24vw, 22rem); line-height: 1;
+  color: transparent; -webkit-text-stroke: 1.5px var(--line);
+  pointer-events: none; user-select: none; z-index: 0;
+}
+.project--panel .project__card { position: relative; z-index: 1; }
+.work__progress {
+  position: absolute; bottom: 2.4rem; left: var(--pad); right: var(--pad);
+  height: 2px; background: var(--line); overflow: hidden;
+}
+.work__bar {
+  height: 100%; width: 100%; background: var(--accent);
+  transform: scaleX(0); transform-origin: left;
+}
+
+/* ---- Terminal ---- */
+.terminal {
+  margin: calc(var(--pad) * 1.2) var(--pad) 0;
+  max-width: 660px;
+  background: var(--ink); border-radius: 12px; overflow: hidden;
+  box-shadow: 0 30px 70px rgba(20, 18, 15, 0.28);
+}
+.terminal__bar {
+  display: flex; align-items: center; gap: 0.45rem;
+  padding: 0.85rem 1.15rem;
+  background: rgba(243, 239, 230, 0.06);
+  border-bottom: 1px solid rgba(243, 239, 230, 0.1);
+}
+.terminal__dot { width: 11px; height: 11px; border-radius: 50%; }
+.t-dot-r { background: #FF5F57; } .t-dot-y { background: #FEBC2E; } .t-dot-g { background: #28C840; }
+.terminal__title {
+  margin-left: auto;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.72rem; letter-spacing: 0.08em; color: rgba(243, 239, 230, 0.45);
+}
+.terminal__body {
+  padding: 1.4rem 1.4rem 1.7rem;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.92rem; line-height: 1.8;
+  color: rgba(243, 239, 230, 0.85);
+  min-height: 250px;
+  white-space: pre-wrap; word-break: break-word;
+}
+.terminal__prompt { color: var(--accent); font-weight: 700; }
+.terminal__cmd { color: var(--paper); }
+.terminal__out { color: rgba(243, 239, 230, 0.72); }
+.terminal__cursor {
+  display: inline-block; width: 0.6em; height: 1.05em;
+  background: var(--accent); vertical-align: text-bottom;
+  animation: tBlink 1s steps(1) infinite;
+}
+@keyframes tBlink { 50% { opacity: 0; } }
+
+/* ---- Mobile: work becomes vertical stack ---- */
+@media (max-width: 900px) {
+  .work__viewport { height: auto; overflow: visible; }
+  .work__track { flex-direction: column; height: auto; gap: 0; padding: 0; }
+  .project--panel { width: 100%; padding: calc(var(--pad) * 1.2) var(--pad) 0; }
+  .project__bg { display: none; }
+  .work__progress { display: none; }
+  .terminal { max-width: 100%; }
+}

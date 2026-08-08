@@ -233,18 +233,157 @@
     });
   });
 
+  /* ---------- Ink hero canvas ---------- */
+  function inkCanvas() {
+    var canvas = document.getElementById("inkCanvas");
+    if (!canvas) return;
+    var ctx = canvas.getContext("2d");
+    var particles = [];
+    var W = 0, H = 0;
+    var mouse = { x: -9999, y: -9999 };
+    var maxCount = prefersReduced ? 0 : 1100;
+
+    function spawn() {
+      return {
+        x: Math.random() * W, y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.28, vy: (Math.random() - 0.5) * 0.28,
+        r: Math.random() * 1.7 + 0.7,
+        a: Math.random() * 0.38 + 0.16,
+        accent: Math.random() < 0.12
+      };
+    }
+
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = canvas.clientWidth; H = canvas.clientHeight;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var target = Math.floor(W * H / 13000);
+      maxCount = Math.max(140, Math.min(target, 1200));
+      if (particles.length > maxCount) particles.length = maxCount;
+      while (particles.length < maxCount) particles.push(spawn());
+    }
+
+    function step() {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+        var dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx * dx + dy * dy;
+        if (d2 < 16000) {
+          var d = Math.sqrt(d2) || 1;
+          var f = (126 - d) / 126 * 1.35;
+          p.x += (dx / d) * f; p.y += (dy / d) * f;
+        }
+        if (p.x < -12) p.x = W + 12; else if (p.x > W + 12) p.x = -12;
+        if (p.y < -12) p.y = H + 12; else if (p.y > H + 12) p.y = -12;
+        ctx.globalAlpha = p.a;
+        ctx.fillStyle = p.accent ? "#E84300" : "#14120F";
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(step);
+    }
+
+    window.addEventListener("mousemove", function (e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener("mouseout", function () { mouse.x = -9999; mouse.y = -9999; });
+    window.addEventListener("resize", resize);
+    resize();
+    if (!prefersReduced) requestAnimationFrame(step);
+  }
+
+  /* ---------- Work: pinned horizontal scroll (desktop only) ---------- */
+  function workHorizontal() {
+    var track = document.getElementById("workTrack");
+    var bar = document.getElementById("workBar");
+    if (!track || prefersReduced) return;
+
+    var mm = gsap.matchMedia();
+    mm.add("(min-width: 901px)", function () {
+      var amount = function () { return Math.max(0, track.scrollWidth - window.innerWidth); };
+      gsap.to(track, {
+        x: function () { return -amount(); },
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#workViewport", start: "top top",
+          end: function () { return "+=" + amount(); },
+          scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true
+        }
+      });
+      if (bar) {
+        gsap.to(bar, {
+          scaleX: 1, ease: "none",
+          scrollTrigger: {
+            trigger: "#workViewport", start: "top top",
+            end: function () { return "+=" + amount(); },
+            scrub: 1
+          }
+        });
+      }
+    });
+  }
+
+  /* ---------- About: typing terminal ---------- */
+  function terminal() {
+    var body = document.getElementById("terminalBody");
+    if (!body) return;
+
+    var lines = [
+      { t: "whoami", type: "cmd" },
+      { t: "ahmad — web developer, growth strategist & AI automation builder", type: "out" },
+      { t: "cat stack.txt", type: "cmd" },
+      { t: "html · css · javascript · python · flutter · gemini-api · git · seo", type: "out" },
+      { t: "./launch --project=your-business", type: "cmd" },
+      { t: "→ responsive, SEO-ready, fast — from Delhi, for anywhere in the world", type: "out" }
+    ];
+
+    function render(upTo, cursor) {
+      var html = "";
+      for (var i = 0; i < upTo; i++) {
+        var l = lines[i];
+        html += (l.type === "cmd" ? '<span class="terminal__prompt">$ </span><span class="terminal__cmd">' + l.t + "</span>" : '<span class="terminal__out">' + l.t + "</span>") + "\n";
+      }
+      if (cursor) html += '<span class="terminal__prompt">$ </span><span class="terminal__cursor"></span>';
+      body.innerHTML = html;
+    }
+
+    if (prefersReduced) { render(lines.length, false); return; }
+
+    var li = 0, ci = 0;
+    function typeNext() {
+      if (li >= lines.length) return;
+      ci++;
+      render(li, true);
+      var current = lines[li].t;
+      body.innerHTML = body.innerHTML.replace('<span class="terminal__prompt">$ </span><span class="terminal__cursor"></span>',
+        '<span class="terminal__prompt">$ </span><span class="terminal__cmd">' + current.slice(0, ci) + '</span><span class="terminal__cursor"></span>');
+      if (ci < current.length) { setTimeout(typeNext, 16); return; }
+      setTimeout(function () {
+        li++; ci = 0;
+        if (li < lines.length) { setTimeout(typeNext, 260); }
+        else { render(lines.length, false); }
+      }, 320);
+    }
+    setTimeout(typeNext, 700);
+  }
+
   /* ---------- Init ---------- */
   if (prefersReduced) {
     document.querySelectorAll(".preloader").forEach(function (p) { p.style.display = "none"; });
     document.querySelectorAll(".hero__word, .contact__word").forEach(function (w) { w.style.transform = "none"; });
-    if (window.gsap) scrollReveals();
+    if (window.gsap) { scrollReveals(); workHorizontal(); }
+    inkCanvas(); terminal();
   } else if (window.gsap) {
     runPreloader();
     scrollReveals();
+    workHorizontal();
+    inkCanvas();
+    terminal();
   } else {
     /* CDN failed — never trap the visitor behind the preloader */
     preloader.style.display = "none";
     document.querySelectorAll(".hero__word, .contact__word").forEach(function (w) { w.style.transform = "none"; });
+    inkCanvas(); terminal();
   }
 
   /* Rebuild triggers on resize (handles layout shifts) */

@@ -73,6 +73,8 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero">
+    <canvas class="hero__ink" id="inkCanvas" aria-hidden="true"></canvas>
+
     <div class="hero__meta">
       <span>Portfolio — 2026</span>
       <span>Web Dev · Digital Marketing · AI</span>
@@ -111,135 +113,142 @@
     </div>
   </div>
 
-  <!-- ============ WORK ============ -->
+  <!-- ============ WORK (horizontal scroll) ============ -->
   <section class="work" id="work">
-    <div class="section-head">
+    <div class="section-head work__head">
       <h2 class="section-head__title">Selected<br />Work<span class="accent">.</span></h2>
       <div class="section-head__side">
         <span class="section-head__index">( 01 — 04 )</span>
-        <p class="section-head__note">Real products I've designed, built, and shipped — from AI pipelines to mobile apps.</p>
+        <p class="section-head__note">Real products I've designed, built, and shipped — from AI pipelines to mobile apps. Keep scrolling →</p>
       </div>
     </div>
 
-    <!-- Project 01 — ScaleFlow -->
-    <article class="project" data-project>
-      <div class="project__top">
-        <span class="project__num">01</span>
-        <div class="project__tags"><span>AI Automation</span><span>Python</span><span>Gemini API</span></div>
-        <span class="project__year">2025</span>
-      </div>
-      <div class="project__card" data-tilt>
-        <div class="project__media" data-parallax-wrap>
-          <svg class="project__poster poster--flow" viewBox="0 0 800 560" aria-hidden="true">
-            <rect width="800" height="560" fill="#14120F"/>
-            <text x="56" y="105" font-family="Fraunces, serif" font-size="64" font-style="italic" fill="#F3EFE6">ScaleFlow</text>
-            <text x="58" y="140" font-family="Archivo, sans-serif" font-size="20" letter-spacing="6" fill="#FF4A00">AUTONOMOUS CONTENT PIPELINE</text>
-            <g stroke="#F3EFE6" stroke-opacity="0.25" stroke-width="1">
-              <line x1="56" y1="190" x2="744" y2="190"/><line x1="56" y1="280" x2="744" y2="280"/><line x1="56" y1="370" x2="744" y2="370"/><line x1="56" y1="460" x2="744" y2="460"/>
-            </g>
-            <g fill="#FF4A00">
-              <circle cx="120" cy="235" r="26"/><circle cx="280" cy="235" r="26"/><circle cx="440" cy="235" r="26"/><circle cx="600" cy="235" r="26"/>
-            </g>
-            <g fill="#F3EFE6" font-family="Archivo, sans-serif" font-size="14" font-weight="700" letter-spacing="2" text-anchor="middle">
-              <text x="120" y="240">NICHE</text><text x="280" y="240">WRITE</text><text x="440" y="240">DESIGN</text><text x="600" y="240">SHIP</text>
-            </g>
-            <g stroke="#F3EFE6" stroke-width="2" fill="none">
-              <path d="M146 235 H254"/><path d="M306 235 H414"/><path d="M466 235 H574"/>
-              <path d="M146 229 L154 235 L146 241"/><path d="M306 229 L314 235 L306 241"/><path d="M466 229 L474 235 L466 241"/>
-            </g>
-            <rect x="560" y="400" width="190" height="44" fill="none" stroke="#FF4A00" stroke-width="2"/>
-            <text x="655" y="427" text-anchor="middle" font-family="Archivo, sans-serif" font-size="17" font-weight="700" letter-spacing="3" fill="#FF4A00">−90% TIME</text>
-          </svg>
-          <a class="project__view" href="https://github.com/ahmadkaab" target="_blank" rel="noopener">View case ↗</a>
-        </div>
-        <div class="project__info">
-          <h3 class="project__title">ScaleFlow</h3>
-          <p class="project__desc">An end-to-end Python + Gemini API pipeline that researches niches, writes content, and builds marketing assets — cutting content production time by <strong>90%</strong>.</p>
-        </div>
-      </div>
-    </article>
+    <div class="work__viewport" id="workViewport">
+      <div class="work__track" id="workTrack">
 
-    <!-- Project 02 — AI eBook Generator -->
-    <article class="project project--alt" data-project>
-      <div class="project__top">
-        <span class="project__num">02</span>
-        <div class="project__tags"><span>AI Product</span><span>E-Publishing</span><span>ebookbazar.shop</span></div>
-        <span class="project__year">2025</span>
-      </div>
-      <div class="project__card" data-tilt>
-        <div class="project__info">
-          <h3 class="project__title">AI eBook<br />Generator</h3>
-          <p class="project__desc">A platform that autonomously generates fully formatted digital products in PDF/EPUB — <strong>50+ e-books</strong> shipped without a single manual layout.</p>
-        </div>
-        <div class="project__media" data-parallax-wrap>
-          <img class="project__poster" src="img/ebookbazar.jpg" alt="AI eBook Generator — live screenshot of ebookbazar.shop" loading="lazy" />
-          <a class="project__view" href="https://ebookbazar.shop" target="_blank" rel="noopener">Visit live site ↗</a>
-        </div>
-      </div>
-    </article>
+        <article class="project project--panel" data-project>
+          <span class="project__bg" aria-hidden="true">01</span>
+          <div class="project__top">
+            <span class="project__num">01</span>
+            <div class="project__tags"><span>AI Automation</span><span>Python</span><span>Gemini API</span></div>
+            <span class="project__year">2025</span>
+          </div>
+          <div class="project__card" data-tilt>
+            <div class="project__media" data-parallax-wrap>
+              <svg class="project__poster poster--flow" viewBox="0 0 800 560" aria-hidden="true">
+                <rect width="800" height="560" fill="#14120F"/>
+                <text x="56" y="105" font-family="Fraunces, serif" font-size="64" font-style="italic" fill="#F3EFE6">ScaleFlow</text>
+                <text x="58" y="140" font-family="Archivo, sans-serif" font-size="20" letter-spacing="6" fill="#E84300">AUTONOMOUS CONTENT PIPELINE</text>
+                <g stroke="#F3EFE6" stroke-opacity="0.25" stroke-width="1">
+                  <line x1="56" y1="190" x2="744" y2="190"/><line x1="56" y1="280" x2="744" y2="280"/><line x1="56" y1="370" x2="744" y2="370"/><line x1="56" y1="460" x2="744" y2="460"/>
+                </g>
+                <g fill="#E84300">
+                  <circle cx="120" cy="235" r="26"/><circle cx="280" cy="235" r="26"/><circle cx="440" cy="235" r="26"/><circle cx="600" cy="235" r="26"/>
+                </g>
+                <g fill="#F3EFE6" font-family="Archivo, sans-serif" font-size="14" font-weight="700" letter-spacing="2" text-anchor="middle">
+                  <text x="120" y="240">NICHE</text><text x="280" y="240">WRITE</text><text x="440" y="240">DESIGN</text><text x="600" y="240">SHIP</text>
+                </g>
+                <g stroke="#F3EFE6" stroke-width="2" fill="none">
+                  <path d="M146 235 H254"/><path d="M306 235 H414"/><path d="M466 235 H574"/>
+                  <path d="M146 229 L154 235 L146 241"/><path d="M306 229 L314 235 L306 241"/><path d="M466 229 L474 235 L466 241"/>
+                </g>
+                <rect x="560" y="400" width="190" height="44" fill="none" stroke="#E84300" stroke-width="2"/>
+                <text x="655" y="427" text-anchor="middle" font-family="Archivo, sans-serif" font-size="17" font-weight="700" letter-spacing="3" fill="#E84300">−90% TIME</text>
+              </svg>
+              <a class="project__view" href="https://github.com/ahmadkaab" target="_blank" rel="noopener">View case ↗</a>
+            </div>
+            <div class="project__info">
+              <h3 class="project__title">ScaleFlow</h3>
+              <p class="project__desc">An end-to-end Python + Gemini API pipeline that researches niches, writes content, and builds marketing assets — cutting content production time by <strong>90%</strong>.</p>
+            </div>
+          </div>
+        </article>
 
-    <!-- Project 03 — Roster Up -->
-    <article class="project" data-project>
-      <div class="project__top">
-        <span class="project__num">03</span>
-        <div class="project__tags"><span>Mobile App</span><span>Flutter</span><span>Esports</span></div>
-        <span class="project__year">2024</span>
-      </div>
-      <div class="project__card" data-tilt>
-        <div class="project__media" data-parallax-wrap>
-          <svg class="project__poster poster--roster" viewBox="0 0 800 560" aria-hidden="true">
-            <rect width="800" height="560" fill="#EAE4D6"/>
-            <circle cx="400" cy="300" r="200" fill="none" stroke="#14120F" stroke-width="1.5" stroke-dasharray="2 10"/>
-            <circle cx="400" cy="300" r="120" fill="none" stroke="#14120F" stroke-width="1.5" stroke-dasharray="2 10"/>
-            <line x1="400" y1="100" x2="400" y2="500" stroke="#14120F" stroke-width="1" opacity="0.3"/>
-            <line x1="200" y1="300" x2="600" y2="300" stroke="#14120F" stroke-width="1" opacity="0.3"/>
-            <path d="M400 300 L560 190 L540 300 Z" fill="#FF4A00"/>
-            <text x="400" y="330" text-anchor="middle" font-family="Archivo, sans-serif" font-size="22" font-weight="800" letter-spacing="6" fill="#14120F">FIND YOUR SQUAD</text>
-            <g fill="#14120F">
-              <circle cx="130" cy="440" r="14"/><circle cx="170" cy="470" r="14"/><circle cx="210" cy="445" r="14"/><circle cx="250" cy="472" r="14"/>
-            </g>
-            <text x="56" y="110" font-family="Fraunces, serif" font-size="58" fill="#14120F">Roster Up</text>
-            <text x="58" y="146" font-family="Archivo, sans-serif" font-size="19" letter-spacing="6" fill="#14120F" opacity="0.55">BGMI · TEAM DISCOVERY</text>
-          </svg>
-          <a class="project__view" href="https://github.com/ahmadkaab" target="_blank" rel="noopener">View case ↗</a>
-        </div>
-        <div class="project__info">
-          <h3 class="project__title">Roster Up</h3>
-          <p class="project__desc">A Flutter MVP for the esports ecosystem — helping BGMI players discover competitive teams and build rosters, built on real community insight from 2 years running an esports org.</p>
-        </div>
-      </div>
-    </article>
+        <article class="project project--panel" data-project>
+          <span class="project__bg" aria-hidden="true">02</span>
+          <div class="project__top">
+            <span class="project__num">02</span>
+            <div class="project__tags"><span>AI Product</span><span>E-Publishing</span><span>ebookbazar.shop</span></div>
+            <span class="project__year">2025</span>
+          </div>
+          <div class="project__card" data-tilt>
+            <div class="project__media" data-parallax-wrap>
+              <img class="project__poster" src="img/ebookbazar.jpg" alt="AI eBook Generator — live screenshot of ebookbazar.shop" loading="lazy" />
+              <a class="project__view" href="https://ebookbazar.shop" target="_blank" rel="noopener">Visit live site ↗</a>
+            </div>
+            <div class="project__info">
+              <h3 class="project__title">AI eBook<br />Generator</h3>
+              <p class="project__desc">A platform that autonomously generates fully formatted digital products in PDF/EPUB — <strong>50+ e-books</strong> shipped without a single manual layout.</p>
+            </div>
+          </div>
+        </article>
 
-    <!-- Project 04 — Pantry Pal -->
-    <article class="project project--alt" data-project>
-      <div class="project__top">
-        <span class="project__num">04</span>
-        <div class="project__tags"><span>Mobile App</span><span>Flutter</span><span>AI Recipe Engine</span></div>
-        <span class="project__year">2024</span>
+        <article class="project project--panel" data-project>
+          <span class="project__bg" aria-hidden="true">03</span>
+          <div class="project__top">
+            <span class="project__num">03</span>
+            <div class="project__tags"><span>Mobile App</span><span>Flutter</span><span>Esports</span></div>
+            <span class="project__year">2024</span>
+          </div>
+          <div class="project__card" data-tilt>
+            <div class="project__media" data-parallax-wrap>
+              <svg class="project__poster poster--roster" viewBox="0 0 800 560" aria-hidden="true">
+                <rect width="800" height="560" fill="#EAE4D6"/>
+                <circle cx="400" cy="300" r="200" fill="none" stroke="#14120F" stroke-width="1.5" stroke-dasharray="2 10"/>
+                <circle cx="400" cy="300" r="120" fill="none" stroke="#14120F" stroke-width="1.5" stroke-dasharray="2 10"/>
+                <line x1="400" y1="100" x2="400" y2="500" stroke="#14120F" stroke-width="1" opacity="0.3"/>
+                <line x1="200" y1="300" x2="600" y2="300" stroke="#14120F" stroke-width="1" opacity="0.3"/>
+                <path d="M400 300 L560 190 L540 300 Z" fill="#E84300"/>
+                <text x="400" y="330" text-anchor="middle" font-family="Archivo, sans-serif" font-size="22" font-weight="800" letter-spacing="6" fill="#14120F">FIND YOUR SQUAD</text>
+                <g fill="#14120F">
+                  <circle cx="130" cy="440" r="14"/><circle cx="170" cy="470" r="14"/><circle cx="210" cy="445" r="14"/><circle cx="250" cy="472" r="14"/>
+                </g>
+                <text x="56" y="110" font-family="Fraunces, serif" font-size="58" fill="#14120F">Roster Up</text>
+                <text x="58" y="146" font-family="Archivo, sans-serif" font-size="19" letter-spacing="6" fill="#14120F" opacity="0.55">BGMI · TEAM DISCOVERY</text>
+              </svg>
+              <a class="project__view" href="https://github.com/ahmadkaab" target="_blank" rel="noopener">View case ↗</a>
+            </div>
+            <div class="project__info">
+              <h3 class="project__title">Roster Up</h3>
+              <p class="project__desc">A Flutter MVP for the esports ecosystem — helping BGMI players discover competitive teams and build rosters, built on real community insight from 2 years running an esports org.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="project project--panel" data-project>
+          <span class="project__bg" aria-hidden="true">04</span>
+          <div class="project__top">
+            <span class="project__num">04</span>
+            <div class="project__tags"><span>Mobile App</span><span>Flutter</span><span>AI Recipe Engine</span></div>
+            <span class="project__year">2024</span>
+          </div>
+          <div class="project__card" data-tilt>
+            <div class="project__media" data-parallax-wrap>
+              <svg class="project__poster poster--pantry" viewBox="0 0 800 560" aria-hidden="true">
+                <rect width="800" height="560" fill="#E84300"/>
+                <path d="M180 340 Q400 150 620 340 Z" fill="#F3EFE6"/>
+                <path d="M220 340 Q400 240 580 340 Z" fill="#14120F" opacity="0.9"/>
+                <g>
+                  <circle cx="290" cy="330" r="16" fill="#E84300"/><circle cx="400" cy="308" r="18" fill="#E84300"/><circle cx="505" cy="330" r="14" fill="#E84300"/>
+                  <circle cx="340" cy="300" r="10" fill="#F6E3D8"/><circle cx="450" cy="296" r="11" fill="#F6E3D8"/>
+                </g>
+                <text x="400" y="452" text-anchor="middle" font-family="Archivo, sans-serif" font-size="24" font-weight="800" letter-spacing="8" fill="#14120F">WHAT'S IN THE FRIDGE?</text>
+                <path d="M620 150 l14 30 32 5 -23 22 6 32 -29 -15 -29 15 6 -32 -23 -22 32 -5 Z" fill="#14120F"/>
+                <text x="56" y="110" font-family="Fraunces, serif" font-size="58" fill="#14120F">Pantry Pal</text>
+                <text x="58" y="146" font-family="Archivo, sans-serif" font-size="19" letter-spacing="6" fill="#14120F" opacity="0.7">AI RECIPE ENGINE</text>
+              </svg>
+              <a class="project__view" href="https://github.com/ahmadkaab" target="_blank" rel="noopener">View case ↗</a>
+            </div>
+            <div class="project__info">
+              <h3 class="project__title">Pantry<br />Pal</h3>
+              <p class="project__desc">An inventory-management MVP with an AI recipe engine — scan what's in your kitchen, get meal ideas from available ingredients. Less waste, more cooking.</p>
+            </div>
+          </div>
+        </article>
+
       </div>
-      <div class="project__card" data-tilt>
-        <div class="project__info">
-          <h3 class="project__title">Pantry<br />Pal</h3>
-          <p class="project__desc">An inventory-management MVP with an AI recipe engine — scan what's in your kitchen, get meal ideas from available ingredients. Less waste, more cooking.</p>
-        </div>
-        <div class="project__media" data-parallax-wrap>
-          <svg class="project__poster poster--pantry" viewBox="0 0 800 560" aria-hidden="true">
-            <rect width="800" height="560" fill="#FF4A00"/>
-            <path d="M180 340 Q400 150 620 340 Z" fill="#F3EFE6"/>
-            <path d="M220 340 Q400 240 580 340 Z" fill="#14120F" opacity="0.9"/>
-            <g>
-              <circle cx="290" cy="330" r="16" fill="#FF4A00"/><circle cx="400" cy="308" r="18" fill="#FF4A00"/><circle cx="505" cy="330" r="14" fill="#FF4A00"/>
-              <circle cx="340" cy="300" r="10" fill="#F6E3D8"/><circle cx="450" cy="296" r="11" fill="#F6E3D8"/>
-            </g>
-            <text x="400" y="452" text-anchor="middle" font-family="Archivo, sans-serif" font-size="24" font-weight="800" letter-spacing="8" fill="#14120F">WHAT'S IN THE FRIDGE?</text>
-            <path d="M620 150 l14 30 32 5 -23 22 6 32 -29 -15 -29 15 6 -32 -23 -22 32 -5 Z" fill="#14120F"/>
-            <text x="56" y="110" font-family="Fraunces, serif" font-size="58" fill="#14120F">Pantry Pal</text>
-            <text x="58" y="146" font-family="Archivo, sans-serif" font-size="19" letter-spacing="6" fill="#14120F" opacity="0.7">AI RECIPE ENGINE</text>
-          </svg>
-          <a class="project__view" href="https://github.com/ahmadkaab" target="_blank" rel="noopener">View case ↗</a>
-        </div>
-      </div>
-    </article>
+      <div class="work__progress" aria-hidden="true"><div class="work__bar" id="workBar"></div></div>
+    </div>
 
     <div class="work__extra">
       <span class="work__extra-label">Also in the lab:</span>
@@ -318,6 +327,14 @@
       <span class="chip">Cybersecurity Intern — Secure Strike</span>
       <span class="chip">Founder — Team FALAH Esports</span>
       <span class="chip">Growth: 1.6M+ impressions</span>
+    </div>
+
+    <div class="terminal" id="terminal" aria-label="Interactive terminal introducing Ahmad">
+      <div class="terminal__bar">
+        <span class="terminal__dot t-dot-r"></span><span class="terminal__dot t-dot-y"></span><span class="terminal__dot t-dot-g"></span>
+        <span class="terminal__title">ahmad@dev: ~</span>
+      </div>
+      <div class="terminal__body" id="terminalBody"></div>
     </div>
 
     <div class="about__stats">
