@@ -69,6 +69,27 @@
     var label = document.getElementById("cursorLabel");
     var mx = 0, my = 0, rx = 0, ry = 0;
 
+    // Context-aware labels
+    var labelMap = {
+      'a[href^="mailto"]': "Email",
+      'a[href*="github"]': "GitHub",
+      'a[href*="linkedin"]': "LinkedIn",
+      'a[href*="calendly"]': "Book",
+      '.btn--ink': "Start",
+      '.btn--accent': "Book",
+      '.btn--ghost': "View",
+      '.accordion__row': "Open",
+      '.project__view': "View case",
+      '.project__media': "View",
+      '[data-magnetic]': "Click"
+    };
+    function getLabel(el) {
+      for (var sel in labelMap) {
+        if (el.closest(sel)) return labelMap[sel];
+      }
+      return "View";
+    }
+
     window.addEventListener("mousemove", function (e) {
       mx = e.clientX; my = e.clientY;
       dot.style.left = mx + "px"; dot.style.top = my + "px";
@@ -86,7 +107,11 @@
 
     var hoverTargets = "a, button, .accordion__row, [data-magnetic]";
     document.addEventListener("mouseover", function (e) {
-      if (e.target.closest(hoverTargets)) cursor.classList.add("is-hover");
+      var target = e.target.closest(hoverTargets);
+      if (target) {
+        cursor.classList.add("is-hover");
+        label.textContent = getLabel(target);
+      }
       if (e.target.closest("[data-project] .project__media, .project__view")) cursor.classList.add("is-view");
     });
     document.addEventListener("mouseout", function (e) {
@@ -323,7 +348,7 @@
     });
   }
 
-  /* ---------- About: typing terminal ---------- */
+  /* ---------- About: typing terminal (interactive conversion tool) ---------- */
   function terminal() {
     var body = document.getElementById("terminalBody");
     if (!body) return;
@@ -337,21 +362,107 @@
       { t: "→ responsive, SEO-ready, fast — from Delhi, for anywhere in the world", type: "out" }
     ];
 
-    function render(upTo, cursor) {
+    var state = "typing"; // typing, ready, processing
+    var commandHistory = [];
+    var currentInput = "";
+
+    function render(upTo, cursor, inputLine) {
       var html = "";
       for (var i = 0; i < upTo; i++) {
         var l = lines[i];
         html += (l.type === "cmd" ? '<span class="terminal__prompt">$ </span><span class="terminal__cmd">' + l.t + "</span>" : '<span class="terminal__out">' + l.t + "</span>") + "\n";
       }
-      if (cursor) html += '<span class="terminal__prompt">$ </span><span class="terminal__cursor"></span>';
+      if (state === "typing" && cursor) {
+        html += '<span class="terminal__prompt">$ </span><span class="terminal__cursor"></span>';
+      } else if (state === "ready") {
+        // Show command history + current input
+        commandHistory.forEach(function(cmd) {
+          html += '<span class="terminal__prompt">$ </span><span class="terminal__cmd">' + cmd + "</span>\n";
+        });
+        html += '<span class="terminal__prompt">$ </span><span class="terminal__cmd">' + currentInput + '</span><span class="terminal__cursor"></span>';
+      }
       body.innerHTML = html;
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function handleCommand(cmd) {
+      var c = cmd.trim().toLowerCase();
+      commandHistory.push(cmd);
+      if (c === "hire ahmad" || c === "hire" || c === "work with ahmad" || c === "contact") {
+        lines.push({ t: "Opening calendar... 🚀", type: "out" });
+        render(lines.length, false);
+        setTimeout(function() {
+          window.open("https://calendly.com/ahmadkaab/strategy-call", "_blank", "noopener");
+        }, 600);
+      } else if (c === "help" || c === "?") {
+        lines.push({ t: "Commands: hire ahmad · help · clear · about · stack", type: "out" });
+      } else if (c === "clear") {
+        lines = lines.slice(0, 6); // keep original 6 lines
+        commandHistory = [];
+      } else if (c === "about") {
+        lines.push({ t: "ahmad — web dev + growth + AI automation. 1.6M impressions, 50+ AI products, 12+ clients.", type: "out" });
+      } else if (c === "stack") {
+        lines.push({ t: "html · css · js · python · flutter · gemini-api · git · seo · gsap · lenis", type: "out" });
+      } else if (c === "") {
+        // empty, do nothing
+      } else {
+        lines.push({ t: "Unknown command: " + cmd + " — type 'help'", type: "out" });
+      }
+      currentInput = "";
+      state = "ready";
+      render(lines.length, false);
+    }
+
+    function render(upTo, cursor, inputLine) {
+      var html = "";
+      for (var i = 0; i < upTo; i++) {
+        var l = lines[i];
+        html += (l.type === "cmd" ? '<span class="terminal__prompt">$ </span><span class="terminal__cmd">' + l.t + "</span>" : '<span class="terminal__out">' + l.t + "</span>") + "\n";
+      }
+      if (state === "typing" && cursor) {
+        html += '<span class="terminal__prompt">$ </span><span class="terminal__cursor"></span>';
+      } else if (state === "ready") {
+        commandHistory.forEach(function(cmd) {
+          html += '<span class="terminal__prompt">$ </span><span class="terminal__cmd">' + cmd + "</span>\n";
+        });
+        html += '<span class="terminal__prompt">$ </span><span class="terminal__cmd">' + currentInput + '</span><span class="terminal__cursor"></span>';
+      }
+      body.innerHTML = html;
+      body.scrollTop = body.scrollHeight;
+    }
+
+    // Make terminal focusable for keyboard input
+    var terminalEl = document.getElementById("terminal");
+    if (terminalEl) {
+      terminalEl.setAttribute("tabindex", "0");
+      terminalEl.addEventListener("keydown", function(e) {
+        if (state !== "ready") return;
+        if (e.key === "Enter") {
+          e.preventDefault();
+          handleCommand(currentInput);
+        } else if (e.key === "Backspace") {
+          e.preventDefault();
+          currentInput = currentInput.slice(0, -1);
+          render(lines.length, false);
+        } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+          e.preventDefault();
+          currentInput += e.key;
+          render(lines.length, false);
+        }
+      });
+      terminalEl.addEventListener("click", function() { terminalEl.focus(); });
     }
 
     if (prefersReduced) { render(lines.length, false); return; }
 
     var li = 0, ci = 0;
     function typeNext() {
-      if (li >= lines.length) return;
+      if (li >= lines.length) {
+        state = "ready";
+        render(lines.length, false);
+        if (terminalEl) terminalEl.focus();
+        return;
+      }
       ci++;
       render(li, true);
       var current = lines[li].t;
@@ -361,7 +472,7 @@
       setTimeout(function () {
         li++; ci = 0;
         if (li < lines.length) { setTimeout(typeNext, 260); }
-        else { render(lines.length, false); }
+        else { state = "ready"; render(lines.length, false); if (terminalEl) terminalEl.focus(); }
       }, 320);
     }
     setTimeout(typeNext, 700);
@@ -377,13 +488,30 @@
     runPreloader();
     scrollReveals();
     workHorizontal();
-    inkCanvas();
-    terminal();
+    /* Lazy-init heavy features when user scrolls near them */
+    initOnScroll("#hero", inkCanvas, { once: true, rootMargin: "0px" });
+    initOnScroll("#workViewport", function() { workHorizontal(); }, { once: true, rootMargin: "200px" });
+    initOnScroll("#about", terminal, { once: true, rootMargin: "300px" });
   } else {
     /* CDN failed — never trap the visitor behind the preloader */
     preloader.style.display = "none";
     document.querySelectorAll(".hero__word, .contact__word").forEach(function (w) { w.style.transform = "none"; });
     inkCanvas(); terminal();
+  }
+
+  /* Helper: init feature when element enters viewport */
+  function initOnScroll(selector, initFn, options) {
+    var el = document.querySelector(selector);
+    if (!el) return;
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          initFn();
+          observer.disconnect();
+        }
+      });
+    }, options || { rootMargin: "100px" });
+    observer.observe(el);
   }
 
   /* Rebuild triggers on resize (handles layout shifts) */

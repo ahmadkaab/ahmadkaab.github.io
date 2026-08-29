@@ -36,6 +36,39 @@ body {
 
 ::selection { background: var(--accent); color: var(--paper); }
 
+/* ============ GLOBAL A11Y ============ */
+.skip-link {
+  position: absolute; top: -100%; left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: var(--paper);
+  padding: 0.75rem 1.5rem; border-radius: 6px;
+  font-size: 0.85rem; font-weight: 600; z-index: 10001;
+  transition: top 0.3s var(--ease-out);
+}
+.skip-link:focus { top: 1rem; outline: none; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Remove default focus ring on buttons/links that have custom focus */
+.btn:focus-visible,
+.nav__links a:focus-visible,
+.accordion__row:focus-visible,
+.project__view:focus-visible,
+.contact__mail:focus-visible,
+.footer__col a:focus-visible,
+.footer__top:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Nav CTA keeps its own focus style */
+.nav__cta:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; background: none; border: none; color: inherit; cursor: pointer; }
 a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
@@ -108,8 +141,8 @@ img, svg { display: block; max-width: 100%; }
   position: fixed; top: 0; left: 0; right: 0; z-index: 900;
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.4rem var(--pad);
-  mix-blend-mode: difference;
-  color: #fff;
+  background: var(--ink);
+  color: var(--paper);
 }
 .nav__logo {
   font-family: var(--serif); font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em;
@@ -127,10 +160,11 @@ img, svg { display: block; max-width: 100%; }
 }
 .nav__links a:not(.nav__cta):hover::after { transform: scaleX(1); transform-origin: left; }
 .nav__cta {
-  border: 1.5px solid #fff; border-radius: 999px; padding: 0.55rem 1.3rem;
+  border: 1.5px solid var(--accent); border-radius: 999px; padding: 0.55rem 1.3rem;
+  color: var(--accent); background: transparent;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
-.nav__cta:hover { background: #fff; color: var(--ink); border-color: #fff; }
+.nav__cta:hover { background: var(--accent); color: var(--paper); border-color: var(--accent); }
 
 /* ============ HERO ============ */
 .hero {
@@ -175,7 +209,14 @@ img, svg { display: block; max-width: 100%; }
 }
 .hero__ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-/* Buttons */
+.hero__trust {
+  display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-faint); margin: 1rem 0 0.5rem;
+}
+.hero__trust-sep { color: var(--line); }
+
+/* Rotating badge */
 .btn {
   display: inline-flex; align-items: center; gap: 0.6rem;
   font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
@@ -187,6 +228,8 @@ img, svg { display: block; max-width: 100%; }
 .btn--ink:hover { background: var(--accent); border-color: var(--accent); }
 .btn--ghost { border: 1.5px solid var(--ink); color: var(--ink); }
 .btn--ghost:hover { background: var(--ink); color: var(--paper); }
+.btn--accent { border: 1.5px solid var(--accent); color: var(--accent); background: transparent; }
+.btn--accent:hover { background: var(--accent); color: var(--paper); border-color: var(--accent); }
 .btn__arrow { font-size: 1.05rem; transition: transform 0.3s var(--ease-out); }
 .btn:hover .btn__arrow { transform: translateY(3px); }
 .btn--ghost:hover .btn__arrow { transform: translateX(4px); }
@@ -532,7 +575,8 @@ img, svg { display: block; max-width: 100%; }
   transform: translate(-50%, -50%);
   font-family: var(--serif); font-weight: 700; letter-spacing: -0.03em;
   font-size: clamp(11rem, 24vw, 22rem); line-height: 1;
-  color: transparent; -webkit-text-stroke: 1.5px var(--line);
+  color: transparent; -webkit-text-stroke: 2px var(--ink);
+  opacity: 0.18;
   pointer-events: none; user-select: none; z-index: 0;
 }
 .project--panel .project__card { position: relative; z-index: 1; }
