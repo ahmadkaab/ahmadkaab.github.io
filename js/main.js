@@ -69,6 +69,19 @@
     var label = document.getElementById("cursorLabel");
     var mx = 0, my = 0, rx = 0, ry = 0;
 
+    // Cursor trail particles - create DOM elements
+    var trail = [];
+    var trailMax = 8;
+    var trailEls = [];
+    for (var i = 0; i < trailMax; i++) {
+      var t = document.createElement("div");
+      t.className = "cursor__trail";
+      t.style.opacity = "0";
+      document.body.appendChild(t);
+      trailEls.push(t);
+      trail.push({ x: 0, y: 0, life: 0 });
+    }
+
     // Context-aware labels
     var labelMap = {
       'a[href^="mailto"]': "Email",
@@ -94,6 +107,10 @@
       mx = e.clientX; my = e.clientY;
       dot.style.left = mx + "px"; dot.style.top = my + "px";
       cursor.style.opacity = 1;
+
+      // Trail
+      trail.push({ x: mx, y: my, life: 1 });
+      if (trail.length > trailMax) trail.shift();
     });
     document.addEventListener("mouseleave", function () { cursor.style.opacity = 0; });
 
@@ -102,6 +119,19 @@
       ry += (my - ry) * 0.16;
       ring.style.left = rx + "px"; ring.style.top = ry + "px";
       label.style.left = rx + "px"; label.style.top = ry + "px";
+
+      // Render trail
+      for (var i = 0; i < trail.length; i++) {
+        trail[i].life *= 0.85;
+        if (trail[i].life < 0.02) { trail.splice(i, 1); i--; continue; }
+        if (trailEls[i]) {
+          trailEls[i].style.left = trail[i].x + "px";
+          trailEls[i].style.top = trail[i].y + "px";
+          trailEls[i].style.opacity = trail[i].life * 0.6;
+          trailEls[i].style.transform = "translate(-50%, -50%) scale(" + (0.5 + trail[i].life * 0.5) + ")";
+        }
+      }
+
       requestAnimationFrame(loop);
     })();
 
@@ -129,12 +159,14 @@
     document.querySelectorAll("[data-magnetic]").forEach(function (el) {
       el.addEventListener("mousemove", function (e) {
         var r = el.getBoundingClientRect();
-        var x = (e.clientX - r.left - r.width / 2) * 0.3;
-        var y = (e.clientY - r.top - r.height / 2) * 0.3;
+        var x = (e.clientX - r.left - r.width / 2) * 0.25;
+        var y = (e.clientY - r.top - r.height / 2) * 0.25;
         el.style.transform = "translate(" + x + "px," + y + "px)";
+        if (el.classList.contains("btn")) el.classList.add("is-magnetic");
       });
       el.addEventListener("mouseleave", function () {
         el.style.transform = "translate(0,0)";
+        el.classList.remove("is-magnetic");
       });
     });
   }
